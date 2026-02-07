@@ -1,4 +1,4 @@
-import { useReducer } from 'react';
+import { useReducer, useEffect } from 'react';
 import { IntroScreen } from './components/IntroScreen';
 import { ProgressBar } from './components/ProgressBar';
 import { QuestionCard } from './components/QuestionCard';
@@ -7,7 +7,12 @@ import { HeartRatingQuestion } from './components/HeartRatingQuestion';
 import { YesNoQuestion } from './components/YesNoQuestion';
 import { EmojiReactionQuestion } from './components/EmojiReactionQuestion';
 import { NavigationButtons } from './components/NavigationButtons';
+import { ScoreReveal } from './components/ScoreReveal';
+import { LoveLetter } from './components/LoveLetter';
+import { ValentinePrompt } from './components/ValentinePrompt';
 import { questions } from './data/questions';
+import { triggerCelebration } from './utils/confetti';
+import { sendQuizAnswers, initializeEmailJS } from './utils/emailjs';
 
 type Step = 'intro' | 'question' | 'score' | 'letter' | 'valentine';
 
@@ -104,12 +109,33 @@ function quizReducer(state: QuizState, action: QuizAction): QuizState {
 export default function App() {
   const [state, dispatch] = useReducer(quizReducer, initialState);
 
+  useEffect(() => {
+    initializeEmailJS();
+  }, []);
+
   const handleStart = () => {
     dispatch({ type: 'START_QUIZ' });
   };
 
-  const handleAnswer = (letterSegment: string) => {
+  const handleAnswer = async (letterSegment: string) => {
     dispatch({ type: 'ANSWER_QUESTION', letterSegment });
+    
+    const isLastQuestion = state.questionIndex === questions.length - 1;
+    if (isLastQuestion) {
+      try {
+        const newAnswers = [...state.answers];
+        newAnswers[state.questionIndex] = letterSegment;
+        
+        await sendQuizAnswers({
+          user_name: 'Tanya',
+          user_email: 'tanya@example.com',
+          answers: JSON.stringify(newAnswers),
+          timestamp: new Date().toISOString(),
+        });
+      } catch (error) {
+        console.error('Failed to send quiz answers:', error);
+      }
+    }
   };
 
   const handleBack = () => {
@@ -124,10 +150,9 @@ export default function App() {
     return <IntroScreen onStart={handleStart} />;
   }
 
-  // Render question screen
   if (state.step === 'question' && currentQuestion) {
     return (
-      <div className="min-h-screen flex flex-col">
+      <div className="min-h-screen flex flex-col animate-[fadeIn_0.4s_ease-in]">
         <ProgressBar current={state.questionIndex + 1} total={questions.length} />
         
         <QuestionCard
@@ -176,57 +201,33 @@ export default function App() {
     );
   }
 
-  // Placeholder screens for score, letter, valentine
   if (state.step === 'score') {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-rose-100 via-pink-50 to-rose-200 px-4">
-        <div className="max-w-2xl w-full bg-white/90 backdrop-blur-sm rounded-3xl shadow-2xl p-12 text-center">
-          <h1 className="text-4xl font-bold text-rose-900 mb-4">Score Screen</h1>
-          <p className="text-lg text-rose-700 mb-8">
-            You answered {state.answers.length} questions!
-          </p>
-          <button
-            type="button"
-            onClick={() => dispatch({ type: 'SHOW_LETTER' })}
-            className="px-8 py-4 bg-rose-500 hover:bg-rose-600 text-white text-lg font-semibold rounded-full shadow-lg transition-all duration-300 hover:scale-105"
-          >
-            View Your Letter
-          </button>
-        </div>
-      </div>
+      <ScoreReveal
+        onContinue={async () => {
+          await triggerCelebration();
+          dispatch({ type: 'SHOW_LETTER' });
+        }}
+      />
     );
   }
 
   if (state.step === 'letter') {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-rose-100 via-pink-50 to-rose-200 px-4">
-        <div className="max-w-2xl w-full bg-white/90 backdrop-blur-sm rounded-3xl shadow-2xl p-12 text-center">
-          <h1 className="text-4xl font-bold text-rose-900 mb-4">Letter Screen</h1>
-          <p className="text-lg text-rose-700 mb-8">
-            Your personalized love letter will appear here.
-          </p>
-          <button
-            type="button"
-            onClick={() => dispatch({ type: 'SHOW_VALENTINE' })}
-            className="px-8 py-4 bg-rose-500 hover:bg-rose-600 text-white text-lg font-semibold rounded-full shadow-lg transition-all duration-300 hover:scale-105"
-          >
-            Continue
-          </button>
-        </div>
-      </div>
+      <LoveLetter
+        letterSegments={state.answers}
+        onContinue={() => dispatch({ type: 'SHOW_VALENTINE' })}
+      />
     );
   }
 
   if (state.step === 'valentine') {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-rose-100 via-pink-50 to-rose-200 px-4">
-        <div className="max-w-2xl w-full bg-white/90 backdrop-blur-sm rounded-3xl shadow-2xl p-12 text-center">
-          <h1 className="text-4xl font-bold text-rose-900 mb-4">Valentine Screen</h1>
-          <p className="text-lg text-rose-700">
-            Final valentine message will appear here.
-          </p>
-        </div>
-      </div>
+      <ValentinePrompt
+        onYes={async () => {
+          await triggerCelebration();
+        }}
+      />
     );
   }
 

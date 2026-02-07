@@ -868,7 +868,7 @@ Parallel Speedup: ~50% faster than sequential
 
 ---
 
-- [ ] 
+- [x] 
   7. Runaway "No" Button Component + Logic
 
   **What to do**:
@@ -1016,7 +1016,7 @@ Parallel Speedup: ~50% faster than sequential
 
 ---
 
-- [ ] 
+- [x] 
   8. Integration + Polish - Connect All Features
 
   **What to do**:
