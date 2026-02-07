@@ -15,6 +15,14 @@ export const IntroScreen: React.FC<IntroScreenProps> = ({ onStart }) => {
         <div className="absolute bottom-[25%] right-[8%] text-pink-300 opacity-20 animate-pulse text-6xl" style={{ animationDelay: '1.5s' }}>💝</div>
       </div>
 
+      {/* Hidden video preload for slow connections */}
+      <div style={{ position: 'absolute', width: 0, height: 0, overflow: 'hidden', pointerEvents: 'none' }}>
+        <video preload="auto" src={import.meta.env.BASE_URL + 'videos/1-cat-piano.webm'} />
+        <video preload="auto" src={import.meta.env.BASE_URL + 'videos/2-cat-funny-clip.webm'} />
+        <video preload="auto" src={import.meta.env.BASE_URL + 'videos/3-cat-japanese.webm'} />
+        <video preload="auto" src={import.meta.env.BASE_URL + 'videos/4-tyn-tyn.webm'} />
+      </div>
+
       <div className="max-w-2xl w-full relative z-10">
         {/* Liquid glass card */}
         <div className="bg-white/40 backdrop-blur-xl rounded-3xl shadow-2xl shadow-rose-200/50 p-8 sm:p-12 lg:p-16 border border-white/60 relative overflow-hidden">

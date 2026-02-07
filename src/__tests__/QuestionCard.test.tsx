@@ -47,12 +47,13 @@ describe('QuestionCard', () => {
         <div>Content</div>
       </QuestionCard>
     );
-    const videoElement = container.querySelector('video');
+    const videoElement = container.querySelector('video') as HTMLVideoElement;
     expect(videoElement).toBeInTheDocument();
     expect(videoElement).toHaveAttribute('loop');
     expect(videoElement).toHaveAttribute('controls');
     expect(videoElement).toHaveAttribute('playsinline');
-    expect(videoElement?.muted).toBe(false);
+    expect(videoElement.autoplay).toBe(true);
+    expect(videoElement.muted).toBe(true);
   });
 
   it('does not render video element when videoSrc is undefined', () => {

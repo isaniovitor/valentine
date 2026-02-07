@@ -1,4 +1,5 @@
 import React from 'react';
+import { useVideoAutoplay } from '../hooks/useVideoAutoplay';
 
 interface QuestionCardProps {
   questionText: string;
@@ -11,6 +12,7 @@ export const QuestionCard: React.FC<QuestionCardProps> = ({
   videoSrc,
   children,
 }) => {
+  const { registerVideo } = useVideoAutoplay();
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-rose-100 via-pink-50 to-rose-200 px-4 sm:px-6 lg:px-8 py-8 sm:py-12 relative overflow-hidden">
       {/* Animated background hearts */}
@@ -31,6 +33,9 @@ export const QuestionCard: React.FC<QuestionCardProps> = ({
             {videoSrc && (
               <div className="flex justify-center motion-reduce:hidden">
                 <video
+                  ref={registerVideo}
+                  autoPlay
+                  muted
                   loop
                   playsInline
                   controls
