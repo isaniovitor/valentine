@@ -17,7 +17,7 @@ export const EmojiReactionQuestion: React.FC<EmojiReactionQuestionProps> = ({
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 sm:gap-4">
         {question.options.map((option) => {
           const isSelected = selectedAnswer === option.letterSegment;
-          
+
           return (
             <button
               key={option.letterSegment}
@@ -35,7 +35,7 @@ export const EmojiReactionQuestion: React.FC<EmojiReactionQuestionProps> = ({
                 }`}>
                   {option.emoji}
                 </span>
-                
+
                 <span className={`text-xs sm:text-sm font-medium text-center transition-colors duration-300 ${
                   isSelected ? 'text-rose-900' : 'text-gray-700 group-hover:text-rose-800'
                 }`}>
@@ -68,7 +68,7 @@ export const EmojiReactionQuestion: React.FC<EmojiReactionQuestionProps> = ({
 
       {selectedAnswer && (
         <p className="text-center text-sm sm:text-base text-gray-600 animate-fade-in">
-          Perfect choice—your emotions shine through
+          Perfect choice — your emotions shine through
         </p>
       )}
     </div>

@@ -17,7 +17,7 @@ export const questions: Question[] = [
       },
       {
         text: 'The way you look at me',
-        letterSegment: 'In your eyes, I see forever—and I never want to look away.',
+        letterSegment: 'In your eyes, I see forever — and I never want to look away.',
       },
       {
         text: 'Our quiet moments together',
@@ -53,7 +53,7 @@ export const questions: Question[] = [
       {
         value: 'no',
         text: 'It\'s even better than a story',
-        letterSegment: 'What we have transcends stories—it\'s pure magic, impossibly real.',
+        letterSegment: 'What we have transcends stories — it\'s pure magic, impossibly real.',
       },
     ],
   },
@@ -97,7 +97,7 @@ export const questions: Question[] = [
       },
       {
         text: 'We make each other laugh endlessly',
-        letterSegment: 'With you, laughter isn\'t just sound—it\'s the rhythm of our love.',
+        letterSegment: 'With you, laughter isn\'t just sound — it\'s the rhythm of our love.',
       },
       {
         text: 'We support each other\'s dreams',
@@ -137,7 +137,7 @@ export const questions: Question[] = [
       {
         value: 'no',
         text: 'It\'s even more than home',
-        letterSegment: 'You\'re not just home—you\'re the entire universe where I belong.',
+        letterSegment: 'You\'re not just home — you\'re the entire universe where I belong.',
       },
     ],
   },
