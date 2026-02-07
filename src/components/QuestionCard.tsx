@@ -31,13 +31,14 @@ export const QuestionCard: React.FC<QuestionCardProps> = ({
             {videoSrc && (
               <div className="flex justify-center motion-reduce:hidden">
                 <video
-                  autoPlay
                   loop
-                  muted
                   playsInline
+                  controls
                   src={import.meta.env.BASE_URL + videoSrc}
                   className="rounded-2xl max-h-48 sm:max-h-56 lg:max-h-64 w-auto object-contain"
-                />
+                >
+                  <track kind="captions" />
+                </video>
               </div>
             )}
             <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-rose-900 text-center leading-tight">

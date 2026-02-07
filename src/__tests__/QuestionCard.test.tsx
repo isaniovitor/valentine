@@ -49,9 +49,10 @@ describe('QuestionCard', () => {
     );
     const videoElement = container.querySelector('video');
     expect(videoElement).toBeInTheDocument();
-    expect(videoElement).toHaveAttribute('autoplay');
     expect(videoElement).toHaveAttribute('loop');
-    expect(videoElement?.muted).toBe(true);
+    expect(videoElement).toHaveAttribute('controls');
+    expect(videoElement).toHaveAttribute('playsinline');
+    expect(videoElement?.muted).toBe(false);
   });
 
   it('does not render video element when videoSrc is undefined', () => {
