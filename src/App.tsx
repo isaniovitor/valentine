@@ -14,6 +14,7 @@ import { Footer } from './components/Footer';
 import { questions } from './data/questions';
 import { triggerCelebration } from './utils/confetti';
 import { sendQuizAnswers, initializeEmailJS } from './utils/emailjs';
+import type { Question } from './types/Question';
 
 type Step = 'intro' | 'question' | 'score' | 'letter' | 'valentine';
 
@@ -31,7 +32,9 @@ type QuizAction =
   | { type: 'PREVIOUS_QUESTION' }
   | { type: 'SHOW_SCORE' }
   | { type: 'SHOW_LETTER' }
-  | { type: 'SHOW_VALENTINE' };
+  | { type: 'SHOW_VALENTINE' }
+  | { type: 'MARK_EMAIL_SENT' }
+  | { type: 'RESTORE_STATE'; state: QuizState };
 
 const initialState: QuizState = {
   step: 'intro',
@@ -39,6 +42,18 @@ const initialState: QuizState = {
   answers: [],
   emailSent: false,
 };
+
+function getAnswerText(question: Question, letterSegment: string | undefined): string {
+  if (!letterSegment) return '';
+  for (const opt of question.options) {
+    if (opt.letterSegment === letterSegment) {
+      if ('text' in opt) return opt.text;
+      if ('label' in opt) return `${opt.emoji} ${opt.label}`;
+      if ('hearts' in opt) return `${'❤️'.repeat(opt.hearts)} (${opt.hearts}/5)`;
+    }
+  }
+  return '';
+}
 
 function quizReducer(state: QuizState, action: QuizAction): QuizState {
   switch (action.type) {
@@ -112,8 +127,14 @@ function quizReducer(state: QuizState, action: QuizAction): QuizState {
         emailSent: state.emailSent,
       };
 
-    default:
-      return state;
+     case 'MARK_EMAIL_SENT':
+       return { ...state, emailSent: true };
+
+     case 'RESTORE_STATE':
+       return action.state;
+
+     default:
+       return state;
   }
 }
 
@@ -128,25 +149,8 @@ export default function App() {
     dispatch({ type: 'START_QUIZ' });
   };
 
-  const handleAnswer = async (letterSegment: string) => {
+  const handleAnswer = (letterSegment: string) => {
     dispatch({ type: 'ANSWER_QUESTION', letterSegment });
-    
-    const isLastQuestion = state.questionIndex === questions.length - 1;
-    if (isLastQuestion) {
-      try {
-        const newAnswers = [...state.answers];
-        newAnswers[state.questionIndex] = letterSegment;
-        
-        await sendQuizAnswers({
-          user_name: 'Tanya',
-          user_email: 'tanya@example.com',
-          answers: JSON.stringify(newAnswers),
-          timestamp: new Date().toISOString(),
-        });
-      } catch (error) {
-        console.error('Failed to send quiz answers:', error);
-      }
-    }
   };
 
   const handleBack = () => {
