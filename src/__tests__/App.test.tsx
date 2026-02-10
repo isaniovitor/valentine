@@ -10,14 +10,14 @@ describe('App', () => {
   it('renders intro screen on initial load', () => {
     render(<App />);
     expect(screen.getByText(/happy valentine/i)).toBeInTheDocument();
-    expect(screen.getByText(/jihyeon/i)).toBeInTheDocument();
+    expect(screen.getByText(/tanya/i)).toBeInTheDocument();
   });
 
   it('displays progress indicator during quiz', async () => {
     const user = userEvent.setup();
     render(<App />);
 
-    const startButton = screen.getByRole('button', { name: /let's go/i });
+    const startButton = screen.getByRole('button', { name: /let's begin/i });
     await user.click(startButton);
 
     expect(screen.getByText('Q1/7')).toBeInTheDocument();
@@ -27,7 +27,7 @@ describe('App', () => {
     const user = userEvent.setup();
     render(<App />);
 
-    const startButton = screen.getByRole('button', { name: /let's go/i });
+    const startButton = screen.getByRole('button', { name: /let's begin/i });
     await user.click(startButton);
 
     expect(screen.getByText('Q1/7')).toBeInTheDocument();
@@ -37,11 +37,11 @@ describe('App', () => {
     const user = userEvent.setup();
     render(<App />);
 
-    const startButton = screen.getByRole('button', { name: /let's go/i });
+    const startButton = screen.getByRole('button', { name: /let's begin/i });
     await user.click(startButton);
 
     const firstOption = screen.getAllByRole('button').find(btn =>
-      btn.textContent?.includes('The way our conversations just flow')
+      btn.textContent?.includes('The way you look at me')
     );
 
     if (firstOption) {
@@ -57,13 +57,13 @@ describe('App', () => {
     const user = userEvent.setup();
     render(<App />);
 
-    const startButton = screen.getByRole('button', { name: /let's go/i });
+    const startButton = screen.getByRole('button', { name: /let's begin/i });
     await user.click(startButton);
 
     expect(screen.getByText('Q1/7')).toBeInTheDocument();
 
     // Click the first answer option for Q1
-    const firstAnswerButton = screen.getByRole('button', { name: /the way our conversations just flow/i });
+    const firstAnswerButton = screen.getByRole('button', { name: /the way you look at me/i });
     await user.click(firstAnswerButton);
 
     // Click Next to advance
