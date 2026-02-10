@@ -21,10 +21,10 @@
 export const config = {
   // ─── Names ──────────────────────────────────────────────────────────
   /** The recipient's name (the person taking the quiz) */
-  recipientName: 'Tanya',
+  recipientName: 'Jihyeon',
 
   /** The sender's name (the person who created the quiz) */
-  senderName: 'Vitas',
+  senderName: 'Artem',
 
   // ─── Page title ─────────────────────────────────────────────────────
   /** Shown in the browser tab */
@@ -35,11 +35,11 @@ export const config = {
     /** Greeting line above the recipient's name */
     greeting: "Happy Valentine's Day",
     /** Main message paragraph */
-    message: "I've created something special for you \u2014 a journey through our love story.",
+    message: "I put together a little something for you \u2014 a fun Valentine's quiz just for us.",
     /** Instruction text below the message */
-    instruction: 'Answer next 7 questions please :3',
+    instruction: 'Answer these 7 questions for me :3',
     /** Text on the start button (emoji is appended automatically) */
-    startButton: 'Begin Our Journey',
+    startButton: "Let's Go",
     /** Small note below the button */
     timeEstimate: 'Takes about 2 minutes',
   },
@@ -50,9 +50,9 @@ export const config = {
     title: 'Perfect Match!',
     /** Body text explaining the score */
     message:
-      "Your answers reveal something beautiful \u2014 you're absolutely perfect for each other. Every response shows the depth of your connection.",
+      "Your answers show we've got amazing chemistry. I had a feeling, but now it's confirmed.",
     /** Label on the continue button (emoji appended automatically) */
-    continueButton: 'See Your Love Letter',
+    continueButton: 'See Your Letter',
   },
 
   // ─── Love letter screen ────────────────────────────────────────────
@@ -60,11 +60,11 @@ export const config = {
     /** Section heading */
     heading: 'A Letter For You',
     /** Closing line before signature */
-    closing: 'With all my love,',
+    closing: 'With a smile,',
     /** Signature prefix -- the senderName is appended automatically */
-    signaturePrefix: 'Forever yours',
+    signaturePrefix: 'Yours,',
     /** Label on the continue button (emoji appended automatically) */
-    continueButton: 'One Last Thing...',
+    continueButton: 'One More Thing...',
   },
 
   // ─── Valentine prompt screen ───────────────────────────────────────
