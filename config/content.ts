@@ -131,7 +131,7 @@ export const questions: Question[] = [
     type: 'yesNo',
     question: 'Would you say meeting me was a happy accident?',
     designVariant: 'golden-glow',
-    videoSrc: 'videos/4-tyn-tyn.webm',
+    videoSrc: 'videos/4-tyn-tyn.mp4',
     options: [
       {
         value: 'yes',
