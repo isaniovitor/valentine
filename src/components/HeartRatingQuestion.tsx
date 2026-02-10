@@ -46,9 +46,7 @@ export const HeartRatingQuestion: React.FC<HeartRatingQuestionProps> = ({
               onClick={() => option && onAnswer(option.letterSegment)}
               onMouseEnter={() => setHoveredHearts(hearts)}
               onMouseLeave={() => setHoveredHearts(null)}
-              className={`group relative transition-all duration-300 ${
-                selectedHearts !== null && hearts <= selectedHearts ? 'scale-110' : 'hover:scale-105'
-              }`}
+              className="cursor-pointer"
               aria-label={`Rate ${hearts} out of ${question.maxHearts} hearts`}
             >
               <svg
@@ -72,13 +70,17 @@ export const HeartRatingQuestion: React.FC<HeartRatingQuestionProps> = ({
         })}
       </div>
 
-      {activeHearts !== null && HEART_LABELS[activeHearts] && (
-        <div className="text-center">
-          <p className="text-sm sm:text-base text-rose-600 font-medium animate-fade-in">
-            {HEART_LABELS[activeHearts]}
-          </p>
-        </div>
-      )}
+      <div className="min-h-[28px] text-center">
+        <p
+          className={`text-sm sm:text-base text-rose-600 font-medium transition-opacity duration-300 ${
+            activeHearts !== null && HEART_LABELS[activeHearts] ? 'opacity-100' : 'opacity-0'
+          }`}
+        >
+          {activeHearts !== null && HEART_LABELS[activeHearts]
+            ? HEART_LABELS[activeHearts]
+            : '\u00A0'}
+        </p>
+      </div>
     </div>
   );
 };
