@@ -17,7 +17,7 @@ import { triggerCelebration } from './utils/confetti';
 import { sendQuizAnswers, initializeEmailJS } from './utils/emailjs';
 import { useQuizPersistence } from './hooks/useQuizPersistence';
 import { useQuizNavigation } from './hooks/useQuizNavigation';
-import { config } from './config';
+import { config } from '../configure/config';
 import type { Question } from './types/Question';
 
 type Step = 'intro' | 'question' | 'score' | 'letter' | 'valentine';

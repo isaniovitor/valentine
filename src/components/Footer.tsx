@@ -1,4 +1,4 @@
-import { config } from '../config';
+import { config } from '../../configure/config';
 
 export function Footer() {
   const footerText = config.footer.text

@@ -1,4 +1,4 @@
-import { config } from '../config';
+import { config } from '../../configure/config';
 
 interface LoveLetterProps {
   letterSegments: string[];

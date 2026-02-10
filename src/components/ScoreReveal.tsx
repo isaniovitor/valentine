@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { config } from '../config';
+import { config } from '../../configure/config';
 
 interface ScoreRevealProps {
   onContinue: () => void;
