@@ -114,7 +114,7 @@ For detailed step-by-step instructions, see **[email-templates/SETUP.md](./email
 
 ### White-Label Config
 
-All user-facing text is centralized in [`configure/config.ts`](./configure/config.ts). Edit this single file to personalize the entire quiz -- no other source files need to change.
+All user-facing text is centralized in [`config/config.ts`](./config/config.ts). Edit this single file to personalize the entire quiz -- no other source files need to change.
 
 **What you can customize:**
 
@@ -131,7 +131,7 @@ All user-facing text is centralized in [`configure/config.ts`](./configure/confi
 **Example -- change names:**
 
 ```ts
-// configure/config.ts
+// config/config.ts
 export const config = {
   recipientName: 'Alex',
   senderName: 'Jordan',
@@ -141,7 +141,7 @@ export const config = {
 
 ### Update Quiz Questions
 
-Edit [`src/data/questions.ts`](./src/data/questions.ts) to modify:
+Edit [`config/content.ts`](./config/content.ts) to modify:
 - Question text and answer options
 - Letter segments (text assembled into the final love letter)
 - Design variants (visual themes per question)
@@ -149,7 +149,7 @@ Edit [`src/data/questions.ts`](./src/data/questions.ts) to modify:
 
 ### Swap Videos
 
-Place video files in `public/videos/` and reference them in `src/data/questions.ts` via the `videoSrc` field:
+Place video files in `public/videos/` and reference them in `config/content.ts` via the `videoSrc` field:
 
 ```ts
 {
@@ -227,8 +227,9 @@ bun run build
 ## Project Structure
 
 ```
-configure/
-└── config.ts              # White-label configuration (names, text, messages)
+config/
+├── config.ts              # White-label configuration (names, text, messages)
+└── content.ts             # Quiz questions, answers, and letter segments
 src/
 ├── components/            # React components
 │   ├── IntroScreen.tsx

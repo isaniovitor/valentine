@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
 import confetti from 'canvas-confetti';
-import { config } from '../../configure/config';
+import { config } from '../../config/config';
 
 interface ValentinePromptProps {
   onYes: (noCount: number) => void;

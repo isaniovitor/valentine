@@ -11,12 +11,12 @@ import { LoveLetter } from './components/LoveLetter';
 import { ValentinePrompt } from './components/ValentinePrompt';
 import { Footer } from './components/Footer';
 import { JourneyIndicator } from './components/JourneyIndicator';
-import { questions } from './data/questions';
+import { questions } from '../config/content';
 import { triggerCelebration } from './utils/confetti';
 import { sendQuizAnswers, initializeEmailJS } from './utils/emailjs';
 import { useQuizPersistence } from './hooks/useQuizPersistence';
 import { useQuizNavigation } from './hooks/useQuizNavigation';
-import { config } from '../configure/config';
+import { config } from '../config/config';
 import type { Question } from './types/Question';
 
 type Step = 'intro' | 'question' | 'score' | 'letter' | 'valentine';

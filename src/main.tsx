@@ -1,7 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './App.tsx'
-import { config } from '../configure/config'
+import { config } from '../config/config'
 import './index.css'
 
 document.title = config.pageTitle;

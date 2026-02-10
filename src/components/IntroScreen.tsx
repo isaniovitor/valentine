@@ -1,5 +1,5 @@
 import React from 'react';
-import { config } from '../../configure/config';
+import { config } from '../../config/config';
 
 interface IntroScreenProps {
   onStart: () => void;
