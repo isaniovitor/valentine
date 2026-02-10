@@ -170,6 +170,14 @@ export default function App() {
     dispatch({ type: 'NEXT_QUESTION' });
   };
 
+  const handleJourneyNavigate = (step: 'intro' | 'question' | 'score' | 'letter' | 'valentine') => {
+    if (step === 'question') {
+      dispatch({ type: 'NAVIGATE_TO', step: 'question', questionIndex: questions.length - 1 });
+    } else {
+      dispatch({ type: 'NAVIGATE_TO', step, questionIndex: 0 });
+    }
+  };
+
   const currentQuestion = questions[state.questionIndex];
   const currentAnswer = state.answers[state.questionIndex] ?? null;
 
@@ -274,7 +282,7 @@ export default function App() {
   if (state.step === 'valentine') {
     return (
       <div className="animate-[fadeIn_0.5s_ease-out]">
-        <JourneyIndicator currentStep={state.step} />
+        <JourneyIndicator currentStep={state.step} onNavigate={handleJourneyNavigate} />
         <ValentinePrompt
           onYes={async (noCount: number) => {
             await triggerCelebration();

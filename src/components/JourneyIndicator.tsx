@@ -4,6 +4,7 @@ type Step = 'intro' | 'question' | 'score' | 'letter' | 'valentine';
 
 interface JourneyIndicatorProps {
   currentStep: Step;
+  onNavigate?: (step: Step) => void;
 }
 
 const STEPS: { key: Step; label: string }[] = [
@@ -14,8 +15,9 @@ const STEPS: { key: Step; label: string }[] = [
   { key: 'valentine', label: 'Valentine' },
 ];
 
-export const JourneyIndicator: React.FC<JourneyIndicatorProps> = ({ currentStep }) => {
+export const JourneyIndicator: React.FC<JourneyIndicatorProps> = ({ currentStep, onNavigate }) => {
   const currentIndex = STEPS.findIndex(s => s.key === currentStep);
+  const isNavigable = currentStep === 'valentine' && !!onNavigate;
 
   return (
     <div className="sticky top-0 z-50 bg-white/70 backdrop-blur-md border-b border-rose-200/30 shadow-sm">
@@ -23,6 +25,7 @@ export const JourneyIndicator: React.FC<JourneyIndicatorProps> = ({ currentStep 
         {STEPS.map((step, index) => {
           const isCompleted = index < currentIndex;
           const isCurrent = index === currentIndex;
+          const canClick = isNavigable && (isCompleted || isCurrent);
 
           return (
             <React.Fragment key={step.key}>
@@ -33,7 +36,14 @@ export const JourneyIndicator: React.FC<JourneyIndicatorProps> = ({ currentStep 
                   }`}
                 />
               )}
-              <div className="flex flex-col items-center gap-1">
+              <button
+                type="button"
+                disabled={!canClick}
+                onClick={() => canClick && onNavigate!(step.key)}
+                className={`flex flex-col items-center gap-1 ${
+                  canClick ? 'cursor-pointer hover:opacity-70' : 'cursor-default'
+                }`}
+              >
                 <div
                   className={`rounded-full transition-all duration-500 ${
                     isCurrent
@@ -54,7 +64,7 @@ export const JourneyIndicator: React.FC<JourneyIndicatorProps> = ({ currentStep 
                 >
                   {step.label}
                 </span>
-              </div>
+              </button>
             </React.Fragment>
           );
         })}
