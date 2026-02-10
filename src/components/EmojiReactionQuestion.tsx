@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import type { EmojiReactionQuestion as EmojiReactionQuestionType } from '../types/Question';
+import { triggerSelectionSequence } from '../utils/selectionBurst';
 
 interface EmojiReactionQuestionProps {
   question: EmojiReactionQuestionType;
@@ -14,8 +15,9 @@ export const EmojiReactionQuestion: React.FC<EmojiReactionQuestionProps> = ({
 }) => {
   const [animatingSegment, setAnimatingSegment] = useState<string | null>(null);
 
-  const handleClick = (letterSegment: string) => {
+  const handleClick = (letterSegment: string, e: React.MouseEvent<HTMLButtonElement>) => {
     setAnimatingSegment(letterSegment);
+    triggerSelectionSequence(e.currentTarget, e.clientX, e.clientY);
     onAnswer(letterSegment);
   };
 
@@ -30,7 +32,7 @@ export const EmojiReactionQuestion: React.FC<EmojiReactionQuestionProps> = ({
             <button
               key={option.letterSegment}
               type="button"
-              onClick={() => handleClick(option.letterSegment)}
+              onClick={(e) => handleClick(option.letterSegment, e)}
               onAnimationEnd={() => {
                 if (animatingSegment === option.letterSegment) {
                   setAnimatingSegment(null);

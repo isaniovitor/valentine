@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import type { MultipleChoiceQuestion as MultipleChoiceQuestionType } from '../types/Question';
+import { triggerSelectionSequence } from '../utils/selectionBurst';
 
 interface MultipleChoiceQuestionProps {
   question: MultipleChoiceQuestionType;
@@ -14,8 +15,9 @@ export const MultipleChoiceQuestion: React.FC<MultipleChoiceQuestionProps> = ({
 }) => {
   const [animatingSegment, setAnimatingSegment] = useState<string | null>(null);
 
-  const handleClick = (letterSegment: string) => {
+  const handleClick = (letterSegment: string, e: React.MouseEvent<HTMLButtonElement>) => {
     setAnimatingSegment(letterSegment);
+    triggerSelectionSequence(e.currentTarget, e.clientX, e.clientY);
     onAnswer(letterSegment);
   };
 
@@ -29,7 +31,7 @@ export const MultipleChoiceQuestion: React.FC<MultipleChoiceQuestionProps> = ({
           <button
             key={option.letterSegment}
             type="button"
-            onClick={() => handleClick(option.letterSegment)}
+            onClick={(e) => handleClick(option.letterSegment, e)}
             onAnimationEnd={() => {
               if (animatingSegment === option.letterSegment) {
                 setAnimatingSegment(null);

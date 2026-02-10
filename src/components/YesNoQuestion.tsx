@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import type { YesNoQuestion as YesNoQuestionType } from '../types/Question';
+import { triggerSelectionSequence } from '../utils/selectionBurst';
 
 interface YesNoQuestionProps {
   question: YesNoQuestionType;
@@ -24,8 +25,9 @@ export const YesNoQuestion: React.FC<YesNoQuestionProps> = ({
   const isYesSelected = selectedAnswer === yesOption.letterSegment;
   const isNoSelected = selectedAnswer === noOption.letterSegment;
 
-  const handleClick = (letterSegment: string) => {
+  const handleClick = (letterSegment: string, e: React.MouseEvent<HTMLButtonElement>) => {
     setAnimatingSegment(letterSegment);
+    triggerSelectionSequence(e.currentTarget, e.clientX, e.clientY);
     onAnswer(letterSegment);
   };
 
@@ -34,7 +36,7 @@ export const YesNoQuestion: React.FC<YesNoQuestionProps> = ({
       <div className="flex items-center justify-center gap-4 sm:gap-6">
         <button
           type="button"
-          onClick={() => handleClick(noOption.letterSegment)}
+          onClick={(e) => handleClick(noOption.letterSegment, e)}
           onAnimationEnd={() => {
             if (animatingSegment === noOption.letterSegment) {
               setAnimatingSegment(null);
@@ -60,7 +62,7 @@ export const YesNoQuestion: React.FC<YesNoQuestionProps> = ({
 
         <button
           type="button"
-          onClick={() => handleClick(yesOption.letterSegment)}
+          onClick={(e) => handleClick(yesOption.letterSegment, e)}
           onAnimationEnd={() => {
             if (animatingSegment === yesOption.letterSegment) {
               setAnimatingSegment(null);

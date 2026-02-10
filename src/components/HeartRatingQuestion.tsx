@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import type { HeartRatingQuestion as HeartRatingQuestionType } from '../types/Question';
+import { triggerFloatingHearts } from '../utils/selectionBurst';
 
 const HEART_LABELS: Record<number, string> = {
   1: 'A gentle warmth',
@@ -33,8 +34,9 @@ export const HeartRatingQuestion: React.FC<HeartRatingQuestionProps> = ({
 
   const activeHearts = hoveredHearts ?? selectedHearts;
 
-  const handleClick = (letterSegment: string) => {
+  const handleClick = (letterSegment: string, e: React.MouseEvent<HTMLButtonElement>) => {
     setAnimatingSegment(letterSegment);
+    triggerFloatingHearts(e.currentTarget);
     onAnswer(letterSegment);
   };
 
@@ -50,7 +52,7 @@ export const HeartRatingQuestion: React.FC<HeartRatingQuestionProps> = ({
             <button
               key={hearts}
               type="button"
-              onClick={() => option && handleClick(option.letterSegment)}
+              onClick={(e) => option && handleClick(option.letterSegment, e)}
               onMouseEnter={() => setHoveredHearts(hearts)}
               onMouseLeave={() => setHoveredHearts(null)}
               onAnimationEnd={() => {
@@ -58,7 +60,7 @@ export const HeartRatingQuestion: React.FC<HeartRatingQuestionProps> = ({
                   setAnimatingSegment(null);
                 }
               }}
-              className={`cursor-pointer ${isAnimating ? 'animate-[selection-celebrate_0.6s_ease-out]' : ''}`}
+              className={`cursor-pointer ${isAnimating ? 'animate-[heart-dance_0.6s_ease-out]' : ''}`}
               aria-label={`Rate ${hearts} out of ${question.maxHearts} hearts`}
             >
               <svg
