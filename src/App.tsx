@@ -177,10 +177,10 @@ export default function App() {
   // Render intro screen
   if (state.step === 'intro') {
     return (
-      <>
+      <div className="animate-[fadeIn_0.5s_ease-out]">
         <JourneyIndicator currentStep={state.step} />
         <IntroScreen onStart={handleStart} />
-      </>
+      </div>
     );
   }
 
@@ -240,7 +240,7 @@ export default function App() {
 
   if (state.step === 'score') {
     return (
-      <>
+      <div className="animate-[fadeIn_0.5s_ease-out]">
         <JourneyIndicator currentStep={state.step} />
         <ScoreReveal
           onContinue={async () => {
@@ -249,26 +249,26 @@ export default function App() {
           }}
         />
         <Footer />
-      </>
+      </div>
     );
   }
 
   if (state.step === 'letter') {
     return (
-      <>
+      <div className="animate-[fadeIn_0.5s_ease-out]">
         <JourneyIndicator currentStep={state.step} />
         <LoveLetter
           letterSegments={state.answers}
           onContinue={() => dispatch({ type: 'SHOW_VALENTINE' })}
         />
         <Footer />
-      </>
+      </div>
     );
   }
 
   if (state.step === 'valentine') {
     return (
-      <>
+      <div className="animate-[fadeIn_0.5s_ease-out]">
         <JourneyIndicator currentStep={state.step} />
         <ValentinePrompt
           onYes={async (noCount: number) => {
@@ -308,7 +308,7 @@ export default function App() {
           }}
         />
         <Footer />
-      </>
+      </div>
     );
   }
 
