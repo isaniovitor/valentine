@@ -36,7 +36,7 @@ export const YesNoQuestion: React.FC<YesNoQuestionProps> = ({
         >
           <div className="text-center space-y-2">
             <div className={`text-3xl sm:text-4xl ${isNoSelected ? 'scale-110' : ''} transition-transform duration-300`}>
-              👎
+              💫
             </div>
             <span className={`block text-lg sm:text-xl font-semibold ${
               isNoSelected ? 'text-gray-900' : 'text-gray-700'
@@ -45,36 +45,6 @@ export const YesNoQuestion: React.FC<YesNoQuestionProps> = ({
             </span>
           </div>
         </button>
-
-        <div className="relative">
-          <div className={`w-16 h-16 sm:w-20 sm:h-20 rounded-full border-4 transition-all duration-500 ${
-            isYesSelected
-              ? 'border-rose-500 bg-rose-50'
-              : isNoSelected
-              ? 'border-gray-400 bg-gray-50'
-              : 'border-gray-300 bg-white'
-          }`}>
-            <div className={`absolute inset-0 rounded-full transition-all duration-500 ${
-              isYesSelected
-                ? 'translate-x-0'
-                : isNoSelected
-                ? '-translate-x-0'
-                : 'translate-x-0'
-            }`}>
-              <div className={`w-full h-full rounded-full flex items-center justify-center transition-all duration-500 ${
-                isYesSelected
-                  ? 'bg-rose-500 scale-90'
-                  : isNoSelected
-                  ? 'bg-gray-400 scale-90'
-                  : 'bg-gray-300 scale-75'
-              }`}>
-                <span className="text-white text-xl sm:text-2xl font-bold">
-                  {isYesSelected ? '✓' : isNoSelected ? '✗' : '?'}
-                </span>
-              </div>
-            </div>
-          </div>
-        </div>
 
         <button
           type="button"
@@ -87,7 +57,7 @@ export const YesNoQuestion: React.FC<YesNoQuestionProps> = ({
         >
           <div className="text-center space-y-2">
             <div className={`text-3xl sm:text-4xl ${isYesSelected ? 'scale-110' : ''} transition-transform duration-300`}>
-              👍
+              💖
             </div>
             <span className={`block text-lg sm:text-xl font-semibold ${
               isYesSelected ? 'text-rose-900' : 'text-gray-700'
@@ -97,12 +67,6 @@ export const YesNoQuestion: React.FC<YesNoQuestionProps> = ({
           </div>
         </button>
       </div>
-
-      {selectedAnswer && (
-        <p className="text-center text-sm sm:text-base text-gray-600 animate-fade-in">
-          Your choice reveals your heart
-        </p>
-      )}
     </div>
   );
 };
