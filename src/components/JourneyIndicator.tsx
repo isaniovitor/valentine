@@ -56,7 +56,7 @@ export const JourneyIndicator: React.FC<JourneyIndicatorProps> = ({ currentStep,
                   } ${canClick ? 'group-hover:scale-125 group-hover:shadow-md group-hover:shadow-rose-400/40' : ''}`}
                 />
                 <span
-                  className={`text-[10px] transition-all duration-300 hidden sm:block ${
+                  className={`text-[8px] sm:text-[10px] transition-all duration-300 ${
                     isCurrent
                       ? 'text-rose-600 dark:text-rose-400 font-medium'
                       : isCompleted
