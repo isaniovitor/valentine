@@ -5,7 +5,9 @@ const STORAGE_KEY = 'theme';
 function getInitialTheme(): boolean {
   const stored = localStorage.getItem(STORAGE_KEY);
   if (stored === 'light') return false;
-  return true; // default to dark
+  if (stored === 'dark') return true;
+  // No stored preference — follow system
+  return window.matchMedia('(prefers-color-scheme: dark)').matches;
 }
 
 export function useTheme() {
