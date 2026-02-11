@@ -53,7 +53,7 @@ describe('QuestionCard', () => {
     expect(videoElement).toHaveAttribute('controls');
     expect(videoElement).toHaveAttribute('playsinline');
     expect(videoElement.autoplay).toBe(true);
-    expect(videoElement.muted).toBe(true);
+    // muted state is dynamic: hook tries unmuted first, falls back to muted
   });
 
   it('does not render video element when videoSrc is undefined', () => {

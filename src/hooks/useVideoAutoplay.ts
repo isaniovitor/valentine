@@ -1,40 +1,32 @@
-import { useEffect, useRef } from 'react';
+import { useCallback, useEffect, useRef } from 'react';
 
 export function useVideoAutoplay() {
   const videoRefs = useRef<Set<HTMLVideoElement>>(new Set());
-  const hasInteracted = useRef(false);
 
   useEffect(() => {
-    const handleFirstInteraction = () => {
-      if (hasInteracted.current) return;
-      
-      hasInteracted.current = true;
-      
-      videoRefs.current.forEach(video => {
-        video.muted = false;
-      });
-    };
-
-    document.addEventListener('click', handleFirstInteraction, { once: true });
-    document.addEventListener('touchstart', handleFirstInteraction, { once: true });
-    document.addEventListener('keydown', handleFirstInteraction, { once: true });
-
     return () => {
-      document.removeEventListener('click', handleFirstInteraction);
-      document.removeEventListener('touchstart', handleFirstInteraction);
-      document.removeEventListener('keydown', handleFirstInteraction);
+      videoRefs.current.clear();
     };
   }, []);
 
-  const registerVideo = (video: HTMLVideoElement | null) => {
+  const registerVideo = useCallback((video: HTMLVideoElement | null) => {
     if (!video) return;
-    
+
     videoRefs.current.add(video);
-    
-    if (hasInteracted.current) {
-      video.muted = false;
+
+    // Try unmuted first (works on most desktop browsers).
+    // If blocked, fall back to muted autoplay (required on iOS / strict browsers).
+    video.muted = false;
+    const playPromise = video.play();
+    if (playPromise !== undefined) {
+      playPromise.catch(() => {
+        video.muted = true;
+        video.play().catch(() => {
+          // Even muted autoplay blocked — leave paused with native controls.
+        });
+      });
     }
-  };
+  }, []);
 
   return { registerVideo };
 }
