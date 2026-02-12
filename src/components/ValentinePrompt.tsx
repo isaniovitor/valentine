@@ -1,6 +1,7 @@
-import { useState, useRef, useEffect } from 'react';
-import confetti from 'canvas-confetti';
-import { config } from '../../config/config';
+import { useState, useRef, useEffect } from "react";
+import confetti from "canvas-confetti";
+import { config } from "../../config/config";
+import vida from "../../public/imgs/vida.jpeg"; // Import the image
 
 interface ValentinePromptProps {
   onYes: (noCount: number) => void;
@@ -35,7 +36,12 @@ export function ValentinePrompt({ onYes, hideNoButton }: ValentinePromptProps) {
 
     const duration = 3000;
     const animationEnd = Date.now() + duration;
-    const defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 9999 };
+    const defaults = {
+      startVelocity: 30,
+      spread: 360,
+      ticks: 60,
+      zIndex: 9999,
+    };
 
     const randomInRange = (min: number, max: number) => {
       return Math.random() * (max - min) + min;
@@ -50,19 +56,19 @@ export function ValentinePrompt({ onYes, hideNoButton }: ValentinePromptProps) {
       }
 
       const particleCount = 50 * (timeLeft / duration);
-      
+
       confetti({
         ...defaults,
         particleCount,
         origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 },
-        colors: ['#ff1744', '#ff5252', '#ff6e40', '#ff9100', '#ffc400'],
+        colors: ["#ff1744", "#ff5252", "#ff6e40", "#ff9100", "#ffc400"],
       });
-      
+
       confetti({
         ...defaults,
         particleCount,
         origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 },
-        colors: ['#ff1744', '#ff5252', '#ff6e40', '#ff9100', '#ffc400'],
+        colors: ["#ff1744", "#ff5252", "#ff6e40", "#ff9100", "#ffc400"],
       });
     }, 250);
 
@@ -71,7 +77,12 @@ export function ValentinePrompt({ onYes, hideNoButton }: ValentinePromptProps) {
     }, 500);
   };
 
-  const calculateDistance = (x1: number, y1: number, x2: number, y2: number) => {
+  const calculateDistance = (
+    x1: number,
+    y1: number,
+    x2: number,
+    y2: number,
+  ) => {
     return Math.sqrt((x2 - x1) ** 2 + (y2 - y1) ** 2);
   };
 
@@ -80,11 +91,16 @@ export function ValentinePrompt({ onYes, hideNoButton }: ValentinePromptProps) {
 
     const buttonRect = noButtonRef.current.getBoundingClientRect();
     const containerRect = buttonContainerRef.current.getBoundingClientRect();
-    
+
     const buttonCenterX = buttonRect.left + buttonRect.width / 2;
     const buttonCenterY = buttonRect.top + buttonRect.height / 2;
 
-    const distance = calculateDistance(pointerX, pointerY, buttonCenterX, buttonCenterY);
+    const distance = calculateDistance(
+      pointerX,
+      pointerY,
+      buttonCenterX,
+      buttonCenterY,
+    );
 
     const DODGE_THRESHOLD_PX = 180;
     if (distance < DODGE_THRESHOLD_PX) {
@@ -96,8 +112,11 @@ export function ValentinePrompt({ onYes, hideNoButton }: ValentinePromptProps) {
         startPoliceFlicker();
       }
 
-      const angle = Math.atan2(buttonCenterY - pointerY, buttonCenterX - pointerX);
-      
+      const angle = Math.atan2(
+        buttonCenterY - pointerY,
+        buttonCenterX - pointerX,
+      );
+
       const moveDistance = 400 + Math.random() * 300;
       let newX = buttonCenterX + Math.cos(angle) * moveDistance;
       let newY = buttonCenterY + Math.sin(angle) * moveDistance;
@@ -105,7 +124,7 @@ export function ValentinePrompt({ onYes, hideNoButton }: ValentinePromptProps) {
       const padding = 20;
       const maxX = containerRect.width - buttonRect.width - padding;
       const maxY = containerRect.height - buttonRect.height - padding;
-      
+
       newX = Math.max(padding, Math.min(newX - containerRect.left, maxX));
       newY = Math.max(padding, Math.min(newY - containerRect.top, maxY));
 
@@ -123,10 +142,10 @@ export function ValentinePrompt({ onYes, hideNoButton }: ValentinePromptProps) {
 
   const startSizeAnimation = () => {
     if (scaleIntervalRef.current) return;
-    
+
     let scaleIndex = 0;
     const scales = [1.2, 0.8, 1.4, 0.7, 1.3, 0.9, 1.5]; // Random size changes
-    
+
     scaleIntervalRef.current = window.setInterval(() => {
       setButtonScale(scales[scaleIndex % scales.length]!);
       scaleIndex++;
@@ -142,7 +161,7 @@ export function ValentinePrompt({ onYes, hideNoButton }: ValentinePromptProps) {
 
   const startPoliceFlicker = () => {
     if (flickerIntervalRef.current) return;
-    
+
     flickerIntervalRef.current = window.setInterval(() => {
       setPoliceFlicker((prev) => !prev);
     }, 200);
@@ -187,7 +206,7 @@ export function ValentinePrompt({ onYes, hideNoButton }: ValentinePromptProps) {
     const currentCount = countRef.current;
     const message = NO_CLICK_MESSAGES[currentCount % NO_CLICK_MESSAGES.length];
     setNoClickMessage(message!);
-    
+
     countRef.current += 1;
     setNoClickCount(countRef.current);
 
@@ -207,7 +226,7 @@ export function ValentinePrompt({ onYes, hideNoButton }: ValentinePromptProps) {
     if (messageTimerRef.current) {
       clearTimeout(messageTimerRef.current);
     }
-    
+
     messageTimerRef.current = window.setTimeout(() => {
       setNoClickMessage(null);
       messageTimerRef.current = null;
@@ -228,15 +247,30 @@ export function ValentinePrompt({ onYes, hideNoButton }: ValentinePromptProps) {
   };
 
   return (
-    <div
-      className="min-h-screen flex items-center justify-center bg-gradient-to-br from-rose-100 via-pink-50 to-rose-200 px-4 sm:px-6 lg:px-8 py-8 sm:py-12 relative overflow-hidden"
-    >
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-rose-100 via-pink-50 to-rose-200 px-4 sm:px-6 lg:px-8 py-8 sm:py-12 relative overflow-hidden">
       {/* Floating background decorations */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-[10%] left-[5%] text-rose-300 opacity-20 text-6xl animate-[float-1_8s_ease-in-out_infinite]">💕</div>
-        <div className="absolute top-[20%] right-[10%] text-pink-300 opacity-20 text-5xl animate-[float-2_10s_ease-in-out_infinite]" style={{ animationDelay: '1s' }}>✨</div>
-        <div className="absolute bottom-[15%] left-[15%] text-rose-300 opacity-20 text-5xl animate-[float-3_9s_ease-in-out_infinite]" style={{ animationDelay: '2s' }}>💖</div>
-        <div className="absolute bottom-[25%] right-[8%] text-pink-300 opacity-20 text-6xl animate-[float-1_11s_ease-in-out_infinite]" style={{ animationDelay: '1.5s' }}>💝</div>
+        <div className="absolute top-[10%] left-[5%] text-rose-300 opacity-20 text-6xl animate-[float-1_8s_ease-in-out_infinite]">
+          💕
+        </div>
+        <div
+          className="absolute top-[20%] right-[10%] text-pink-300 opacity-20 text-5xl animate-[float-2_10s_ease-in-out_infinite]"
+          style={{ animationDelay: "1s" }}
+        >
+          ✨
+        </div>
+        <div
+          className="absolute bottom-[15%] left-[15%] text-rose-300 opacity-20 text-5xl animate-[float-3_9s_ease-in-out_infinite]"
+          style={{ animationDelay: "2s" }}
+        >
+          💖
+        </div>
+        <div
+          className="absolute bottom-[25%] right-[8%] text-pink-300 opacity-20 text-6xl animate-[float-1_11s_ease-in-out_infinite]"
+          style={{ animationDelay: "1.5s" }}
+        >
+          💝
+        </div>
       </div>
 
       <div className="max-w-2xl w-full relative z-10">
@@ -244,7 +278,7 @@ export function ValentinePrompt({ onYes, hideNoButton }: ValentinePromptProps) {
         <div className="bg-white/40 backdrop-blur-xl rounded-3xl shadow-2xl shadow-rose-200/50 p-8 sm:p-12 border border-white/60 relative overflow-hidden">
           {/* Glass reflection effect */}
           <div className="absolute inset-0 bg-gradient-to-br from-white/30 via-transparent to-transparent pointer-events-none" />
-          
+
           <div className="text-center relative">
             <div className="mb-8 sm:mb-12">
               <div className="text-6xl sm:text-7xl mb-6 animate-[bounce_2s_ease-in-out_infinite]">
@@ -269,46 +303,53 @@ export function ValentinePrompt({ onYes, hideNoButton }: ValentinePromptProps) {
                 >
                   {/* Glass shine effect on hover */}
                   <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
-                  <span className="relative">{config.valentine.yesButton} 💖</span>
+                  <span className="relative">
+                    {config.valentine.yesButton} 💖
+                  </span>
                 </button>
               </div>
 
               {!hideNoButton && (
-              <button
-                ref={noButtonRef}
-                type="button"
-                onClick={handleNoClick}
-                onMouseMove={handleMouseMove}
-                onTouchStart={handleTouchStart}
-                onTouchMove={(e: React.TouchEvent) => {
-                  if (e.touches.length > 0) {
-                    const touch = e.touches[0];
-                    if (touch) {
-                      moveNoButton(touch.clientX, touch.clientY);
+                <button
+                  ref={noButtonRef}
+                  type="button"
+                  onClick={handleNoClick}
+                  onMouseMove={handleMouseMove}
+                  onTouchStart={handleTouchStart}
+                  onTouchMove={(e: React.TouchEvent) => {
+                    if (e.touches.length > 0) {
+                      const touch = e.touches[0];
+                      if (touch) {
+                        moveNoButton(touch.clientX, touch.clientY);
+                      }
                     }
-                  }
-                }}
-                style={{
-                  position: 'absolute',
-                  left: `${noButtonPosition.x}px`,
-                  top: `${noButtonPosition.y}px`,
-                  transition: isYesClicked ? 'transform 0.5s ease-in, opacity 0.4s ease-in' : 'all 0.1s ease-out',
-                  transform: `scale(${buttonScale}) rotate(${isYesClicked ? '180deg' : '0deg'})`,
-                  opacity: noButtonOpacity,
-                  backgroundColor: policeFlicker ? '#ef4444' : '#3b82f6',
-                  boxShadow: policeFlicker
-                    ? '0 0 20px rgba(239, 68, 68, 0.8), 0 0 40px rgba(239, 68, 68, 0.6)'
-                    : '0 0 20px rgba(59, 130, 246, 0.8), 0 0 40px rgba(59, 130, 246, 0.6)',
-                }}
-                className="px-4 py-2 text-white text-sm font-normal rounded border-2 border-gray-400 hover:border-gray-500 cursor-pointer"
-              >
-                {config.valentine.noButton}
-              </button>
+                  }}
+                  style={{
+                    position: "absolute",
+                    left: `${noButtonPosition.x}px`,
+                    top: `${noButtonPosition.y}px`,
+                    transition: isYesClicked
+                      ? "transform 0.5s ease-in, opacity 0.4s ease-in"
+                      : "all 0.1s ease-out",
+                    transform: `scale(${buttonScale}) rotate(${isYesClicked ? "180deg" : "0deg"})`,
+                    opacity: noButtonOpacity,
+                    backgroundColor: policeFlicker ? "#ef4444" : "#3b82f6",
+                    boxShadow: policeFlicker
+                      ? "0 0 20px rgba(239, 68, 68, 0.8), 0 0 40px rgba(239, 68, 68, 0.6)"
+                      : "0 0 20px rgba(59, 130, 246, 0.8), 0 0 40px rgba(59, 130, 246, 0.6)",
+                  }}
+                  className="px-4 py-2 text-white text-sm font-normal rounded border-2 border-gray-400 hover:border-gray-500 cursor-pointer"
+                >
+                  {config.valentine.noButton}
+                </button>
               )}
             </div>
 
             {noClickMessage && (
-              <div className="absolute inset-x-0 flex justify-center" style={{ top: '50%' }}>
+              <div
+                className="absolute inset-x-0 flex justify-center"
+                style={{ top: "50%" }}
+              >
                 <div className="bg-white/90 backdrop-blur-sm text-rose-600 font-semibold px-6 py-3 rounded-full shadow-lg border border-rose-200 animate-[fadeIn_0.3s_ease-out]">
                   {noClickMessage}
                 </div>
@@ -318,6 +359,17 @@ export function ValentinePrompt({ onYes, hideNoButton }: ValentinePromptProps) {
             <p className="mt-12 sm:mt-16 text-sm text-rose-700 italic bg-white/20 backdrop-blur-sm rounded-full px-6 py-2 inline-block border border-white/40">
               {config.valentine.hintText} 😏
             </p>
+          </div>
+
+          <div className="flex w-full justify-center flex-col gap-10">
+            <p className=" mt-12 sm:mt-16 text-center  text-sm text-rose-700 italic bg-white/20 backdrop-blur-sm rounded-full px-6 py-2 inline-block border border-white/40">
+              Fotinhas (atualizar isso depois, pois está triste nossa galeria)
+            </p>
+
+            <div className="flex gap-10 justify-center">
+              <img src="./public/imgs/me&her.png" alt="sddd" />
+              <img src="./public/imgs/me&her2.png" alt="" />
+            </div>
           </div>
         </div>
       </div>

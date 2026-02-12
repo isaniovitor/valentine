@@ -1,13 +1,15 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from "react";
 
-const STORAGE_KEY = 'theme';
+const STORAGE_KEY = "theme";
 
 function getInitialTheme(): boolean {
-  const stored = localStorage.getItem(STORAGE_KEY);
-  if (stored === 'light') return false;
-  if (stored === 'dark') return true;
-  // No stored preference — follow system
-  return window.matchMedia('(prefers-color-scheme: dark)').matches;
+  return false; // Default to light mode for Valentine's Day theme
+
+  // const stored = localStorage.getItem(STORAGE_KEY);
+  // if (stored === 'light') return false;
+  // if (stored === 'dark') return true;
+  // // No stored preference — follow system
+  // return window.matchMedia('(prefers-color-scheme: dark)').matches;
 }
 
 export function useTheme() {
@@ -16,11 +18,11 @@ export function useTheme() {
   useEffect(() => {
     const root = document.documentElement;
     if (isDark) {
-      root.classList.add('dark');
-      localStorage.setItem(STORAGE_KEY, 'dark');
+      root.classList.add("dark");
+      localStorage.setItem(STORAGE_KEY, "dark");
     } else {
-      root.classList.remove('dark');
-      localStorage.setItem(STORAGE_KEY, 'light');
+      root.classList.remove("dark");
+      localStorage.setItem(STORAGE_KEY, "light");
     }
   }, [isDark]);
 

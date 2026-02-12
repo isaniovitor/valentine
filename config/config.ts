@@ -21,76 +21,78 @@
 export const config = {
   // ─── Names ──────────────────────────────────────────────────────────
   /** The recipient's name (the person taking the quiz) */
-  recipientName: 'Tanya',
+  recipientName: "Amanda",
 
   /** The sender's name (the person who created the quiz) */
-  senderName: 'Vitas',
+  senderName: "Isa",
 
   // ─── Page title ─────────────────────────────────────────────────────
   /** Shown in the browser tab */
-  pageTitle: "Valentine's Day Quiz",
+  pageTitle: "Quiz de Dia dos Namorados 💘",
 
   // ─── Intro screen ──────────────────────────────────────────────────
   intro: {
     /** Greeting line above the recipient's name */
-    greeting: "Happy Valentine's Day",
+    greeting: "Happy valentine's day, meu amorzinho!",
     /** Main message paragraph */
-    message: "I created this little moment for us. A small quiz to celebrate our story.",
+    message:
+      "Fiz esse momentinho pra gente. Um quizinho pra celebrar o que vivemos. Espero que você se sinta especial e feliz 💖",
     /** Instruction text below the message */
-    instruction: "Answer these 7 questions for me :3",
+    instruction: "",
     /** Text on the start button (emoji is appended automatically) */
-    startButton: "Let's Begin",
+    startButton: "Bora Começar",
     /** Small note below the button */
-    timeEstimate: "Takes about 2 minutes",
+    timeEstimate: "Prometo que leva só uns 2 minutinhos",
   },
 
   // ─── Score reveal screen ───────────────────────────────────────────
   scoreReveal: {
     /** Heading after the animated percentage */
-    title: "Perfect Match!",
+    title: "100% Compatíveis! 💞",
     /** Body text explaining the score */
-    message: "A Perfect Match. My heart knew it all along, but seeing your answers makes it sing.",
+    message:
+      "Eu já sabia que a gente combinava perfeitamente… mas ver suas respostas só confirmaram que meu coração nunca erra 😌💘",
     /** Label on the continue button (emoji appended automatically) */
-    continueButton: "See Your Letter",
+    continueButton: "Ver Minha Cartinha",
   },
 
   // ─── Love letter screen ────────────────────────────────────────────
   loveLetter: {
     /** Section heading */
-    heading: 'A Letter For You',
+    heading: "Uma Cartinha Pra Você 💌",
     /** Closing line before signature */
-    closing: 'With a smile,',
+    closing: "Com todo meu carinho,",
     /** Signature prefix -- the senderName is appended automatically */
-    signaturePrefix: 'Yours,',
+    signaturePrefix: "Com amor,",
     /** Label on the continue button (emoji appended automatically) */
-    continueButton: 'One More Thing...',
+    continueButton: "Calma… Tem Mais 👀",
   },
 
   // ─── Valentine prompt screen ───────────────────────────────────────
   valentine: {
     /** The big question */
-    question: 'Will you be my Valentine?',
+    question: "Você aceita ser meu amorzinho nesse Valentine's Day? 💖",
     /** Subtitle under the question */
-    subtitle: "You know there's only one right answer...",
+    subtitle: "Pensa com carinho… (mas a resposta certa você já sabe)",
     /** Label on the Yes button (emoji appended automatically) */
-    yesButton: 'Yes!',
+    yesButton: "SIIIIM 💘",
     /** Label on the No button */
-    noButton: 'No',
+    noButton: "Não 😶",
     /** Hint text at the bottom */
-    hintText: '(Try clicking "No" if you dare...)',
+    hintText: '(Vai lá… tenta apertar "Não" se tiver coragem 😈)',
     /** Witty messages shown when the No button is clicked */
     noClickMessages: [
-      'Nice try! But the answer is Yes!',
-      'Oops! Wrong button!',
-      'Are you sure? Think again!',
-      "That button doesn't work here!",
-      'The only answer is Yes!',
+      "HAHA, botão errado 😌",
+      "Tem certeza mesmo? 🤨",
+      "Hmm… acho que seu dedo escorregou 👀",
+      "Esse botão é decorativo 😌",
+      "A única resposta possível é SIM 💘",
     ],
   },
 
   // ─── Footer ────────────────────────────────────────────────────────
   footer: {
     /** Footer text template. {sender} and {recipient} are replaced automatically. */
-    text: 'Made with love by {sender} for {recipient}',
+    text: "Feito com muito amor por {sender} especialmente para {recipient} 💖",
   },
 };
