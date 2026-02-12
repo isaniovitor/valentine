@@ -1,7 +1,8 @@
 import { useState, useRef, useEffect } from "react";
 import confetti from "canvas-confetti";
 import { config } from "../../config/config";
-import vida from "../../public/imgs/vida.jpeg"; // Import the image
+import vida from "../../public/imgs/me&her.png"; // Import the image
+import vida2 from "../../public/imgs/me&her2.png"; // Import the image
 
 interface ValentinePromptProps {
   onYes: (noCount: number) => void;
@@ -367,8 +368,8 @@ export function ValentinePrompt({ onYes, hideNoButton }: ValentinePromptProps) {
             </p>
 
             <div className="flex gap-10 justify-center">
-              <img src="./public/imgs/me&her.png" alt="sddd" />
-              <img src="./public/imgs/me&her2.png" alt="" />
+              <img src={vida} alt="sddd" />
+              <img src={vida2} alt="" />
             </div>
           </div>
         </div>
