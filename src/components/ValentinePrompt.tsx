@@ -4,6 +4,7 @@ import { config } from "../../config/config";
 import vida from "../../public/imgs/me&her.png"; // Import the image
 import vida2 from "../../public/imgs/me&her2.png"; // Import the image
 
+//
 interface ValentinePromptProps {
   onYes: (noCount: number) => void;
   hideNoButton?: boolean;
@@ -367,9 +368,9 @@ export function ValentinePrompt({ onYes, hideNoButton }: ValentinePromptProps) {
               Fotinhas (atualizar isso depois, pois está triste nossa galeria)
             </p>
 
-            <div className="flex gap-10 justify-center">
-              <img src={vida} alt="sddd" />
-              <img src={vida2} alt="" />
+            <div className="flex flex-col md:flex-row gap-10 justify-center items-center">
+              <img src={vida} alt="" className="w-full md:w-1/2" />
+              <img src={vida2} alt="" className="w-full md:w-1/2" />
             </div>
           </div>
         </div>
